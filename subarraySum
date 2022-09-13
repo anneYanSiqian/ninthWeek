@@ -1,0 +1,23 @@
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var subarraySum = function(nums, k) {
+    const sumsMap = new Map();
+    let pre = 0;
+    let count = 0;
+    sumsMap.set(0, 1);
+    for (let num of nums) {
+        pre += num;
+        if (sumsMap.has(pre-k)) {
+            count += sumsMap.get(pre-k);
+        }
+        if(sumsMap.has(pre)) {
+            sumsMap.set(pre, sumsMap.get(pre) + 1);
+        } else {
+            sumsMap.set(pre, 1);
+        }
+    }
+    return count;
+};
