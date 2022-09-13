@@ -1,0 +1,16 @@
+/**
+ * @param {string} jewels
+ * @param {string} stones
+ * @return {number}
+ */
+var numJewelsInStones = function(jewels, stones) {
+    jewels = jewels.split('');
+    return stones.split('').reduce((pre, val)=> {
+        for(let jewel of jewels) {
+            if(jewel === val) {
+                return pre = pre + 1;
+            }
+        }
+        return pre;
+    }, 0)
+};
