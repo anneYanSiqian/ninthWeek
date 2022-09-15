@@ -1,0 +1,35 @@
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
+ */
+var findAnagrams = function(s, p) {
+    const sLen = s.length;
+    const pLen = p.length;
+    if(sLen < pLen) return [];
+    const res = [];
+    const sMap = new Map();
+    const pMap = new Map();
+    for(const char of p) {
+        pMap.set(char, (pMap.get(char) || 0) + 1);
+    }
+    let left = 0;
+    let right = 0;
+    let valid = 0;
+    while(right < sLen) {
+        let char = s[right++];
+        if(pMap.has(char)) {
+            sMap.set(char, (sMap.get(char) || 0)+1);
+            (sMap.get(char) === pMap.get(char)) && valid++;
+        }
+        if (right-left === pLen) {
+            valid === pMap.size && res.push(left);
+            let char = s[left++];
+            if(pMap.has(char)) {
+                (sMap.get(char) === pMap.get(char)) && valid--;
+                sMap.set(char, sMap.get(char)-1);
+            }
+        }
+    } 
+    return res;
+};
